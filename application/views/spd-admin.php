@@ -1,5 +1,4 @@
-<?php error_reporting(0); ?>
-<!-- Content Header (Page header) -->
+<?php error_reporting(0); ?><!-- Content Header (Page header) -->
 <div class="content-wrapper">
 	<div class="content-header">
 		<div class="container-fluid">
@@ -28,14 +27,14 @@
 						</button>
 					</div>
 				<?php endif; ?>
-				<div class="card">
+				<div class="card card-info">
 					<div class="card-header">
-						<h3 class="card-title"><?= $page ?> <b>(Total : Rp. <?php foreach ($total->result() as $key => $datass) {
-																				echo number_format($datass->total_bayar);
-																			} ?>)</b></h3>
-						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm btn-primary" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
-						<button type="button" class="btn btn-sm btn-success" style="float: right; margin-left: 2px" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
-						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm btn-info" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
+						<h3 class="card-title"><?= $page ?> <b>(Total : Rp. <?php foreach ($total->result() as $key => $datass) { echo number_format($datass->total_bayar); } ?>)</b></h3>
+						<?php if ($this->fungsi->user_login()->ppk != 1) : ?>
+						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
+						<button type="button" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px; color:white" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
+						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm bg-yellow" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
+						<?php endif ?>
 					</div>
 					<div class="modal fade" id="import">
 						<div class="modal-dialog">
@@ -53,14 +52,14 @@
 												<div class="form-line">
 													<input type="file" class="form-control" name="insertFile" placeholder="File ekstensi : xlsx, xls" required><br>
 													<small><b>Ketentuan Import SPD : </b><br>
-														1. Silahkan menggunakan Format Excel SPD 2020 yang sudah berisikan data. Download contoh Format Import SPD <a href="<?= base_url() ?>uploads/format/import_spd_newest.xlsx">disini</a>. <br>
-														2. Untuk kolom tujuan silahkan menggunakan ID KOTA bisa dilihat <a href="<?= base_url() ?>uploads/format/ID_KOTA.xlsx">disini</a> untuk format ID Kota. Gunakan tanda koma (,) untuk memisahkan tujuan 1, 2, 3, dan 4. <br>
-														3. Sheet "Data" dipindahkan menjadi sheet paling awal atau sheet pertama. <br>
-														4. Format Cells menjadi General mulai dari kolom UANG HARIAN sampai kolom KURANG/LEBIH BYR hingga tampilan angka yang muncul tidak lagi memiliki koma (,) <br>
-														5. Untuk pegawai yang tidak punya NIP silahkan dibuatkan NIP sementara terlebih dahulu di Menu Pegawai, NIP dapat berupa angka atau huruf yg dikombinasikan ataupun tidak. Ini dikarenakan SPD menggunakan NIP sebagai Link (penghubung data pegawai dan data SPD) sehingga jika pegawai tidak mempunyai NIP maka SPDnya tidak akan tampil. <br>
-														6. Ada beberapa data yang masih perlu di isikan lagi melalui aplikasi, diantaranya : <br>
-														a) Data Rincian Pengeluaran Riil (Belum ada Rincian Pengeluaran Riil di Format Excel SPD 2020) <br>
-														b) Data Laporan Pelaksanaan ST dan Atasan
+													1. Silahkan menggunakan Format Excel SPD 2020 yang sudah berisikan data. Download contoh Format Import SPD <a href="<?= base_url() ?>uploads/format/import_spd_newest.xlsx">disini</a>. <br>
+													2. Untuk kolom tujuan silahkan menggunakan ID KOTA bisa dilihat <a href="<?= base_url() ?>uploads/format/ID_KOTA.xlsx">disini</a> untuk format ID Kota. Gunakan tanda koma (,) untuk memisahkan tujuan 1, 2, 3, dan 4. <br>
+													3. Sheet "Data" dipindahkan menjadi sheet paling awal atau sheet pertama. <br>
+													4. Format Cells menjadi General mulai dari kolom UANG HARIAN sampai kolom KURANG/LEBIH BYR hingga tampilan angka yang muncul tidak lagi memiliki koma (,) <br>
+													5. Untuk pegawai yang tidak punya NIP silahkan dibuatkan NIP sementara terlebih dahulu di Menu Pegawai, NIP dapat berupa angka atau huruf yg dikombinasikan ataupun tidak. Ini dikarenakan SPD menggunakan NIP sebagai Link (penghubung data pegawai dan data SPD) sehingga jika pegawai tidak mempunyai NIP maka SPDnya tidak akan tampil. <br>
+													6. Ada beberapa data yang masih perlu di isikan lagi melalui aplikasi, diantaranya : <br>
+													a) Data Rincian Pengeluaran Riil (Belum ada Rincian Pengeluaran Riil di Format Excel SPD 2020) <br>
+													b) Data Laporan Pelaksanaan ST dan Atasan
 													</small>
 												</div>
 											</div>
@@ -78,7 +77,7 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body table-responsive">
-						<form method="POST" action="<?= site_url('spd_admin/update_status') ?>" id="form-update">
+					    <form method="POST" action="<?= site_url('spd_admin/update_status') ?>" id="form-update">
 							<div class="d-flex no-block align-items-center">
 								<div class="mb-3 ml-auto"><button type="button" class="btn btn-sm btn-info pull-right collapsed" id="btn-update">Update</button></div>
 							</div>
@@ -114,7 +113,7 @@
 						<table id="example1" class="table table-sm table-bordered" style="width: 100%;">
 							<thead class="thead-light">
 								<tr>
-									<th><input type="checkbox" id="check-all"><label for="check-all"> </label></th>
+								    <th><input type="checkbox" id="check-all"><label for="check-all"> </label></th>
 									<!--<th>No</th>-->
 									<th>Aksi</th>
 									<th>Nomor SPD</th>
@@ -123,7 +122,6 @@
 									<th>Kantor</th>
 									<th>Total Bayar</th>
 									<th>Rincian</th>
-									<th>Status PPK</th>
 									<th width="15% !important">Status</th>
 								</tr>
 							</thead>
@@ -131,9 +129,9 @@
 								<?php $no = 1;
 								foreach ($row->result() as $key => $data) : ?>
 									<tr>
-										<td><input type="checkbox" class="check-item" name="id[]" value="<?= $data->id ?>" id="check<?= $data->id ?>"> <label for="check<?= $data->id ?>"> </label></td>
+									    <td><input type="checkbox" class="check-item" name="id[]" value="<?= $data->id ?>" id="check<?= $data->id ?>"> <label for="check<?= $data->id ?>"> </label></td>
 										<!--<td><?= $no++ ?></td>-->
-										<td>
+										<td><?php if ($this->fungsi->user_login()->ppk != 1) { ?>
 											<div class="input-group-prepend">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
 													<i class="fa fa-info-circle"></i> Aksi
@@ -143,38 +141,38 @@
 														Detail SPD
 													</a>
 													<?php if ($data->status < '4') { ?>
-														<a class="dropdown-item" href="<?= site_url('spd_admin/edit/') ?><?= $data->id ?>">Edit SPD</a>
-														<a class="dropdown-item" href="<?= site_url('spd_admin/batal/') ?><?= $data->id ?>" onclick="return confirm('Yakin batalkan SPD ini?');">Batalkan SPD</a>
+													<a class="dropdown-item" href="<?= site_url('spd_admin/edit/') ?><?= $data->id ?>">Edit SPD</a>
+													<a class="dropdown-item" href="<?= site_url('spd_admin/batal/') ?><?= $data->id ?>" onclick="return confirm('Yakin batalkan SPD ini?');">Batalkan SPD</a>
 													<?php } ?>
 													<?php if ($data->status < 5) : ?>
-														<?php if ($data->tujuan1 != '') { ?>
-															<div class="dropdown-divider"></div>
-															<a class="dropdown-item" href="<?= site_url('spd_admin/print_spd/') ?><?= $data->id ?>" target="_blank">Cetak SPD</a>
-															<a class="dropdown-item" href="<?= site_url('spd_admin/print_lampiran/') ?><?= $data->id ?>" target="_blank">Cetak Lampiran</a>
-														<?php } ?>
+													<?php if ($data->tujuan1 != '') { ?>
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" href="<?= site_url('spd_admin/print_spd/') ?><?= $data->id ?>" target="_blank">Cetak SPD</a>
+													<a class="dropdown-item" href="<?= site_url('spd_admin/print_lampiran/') ?><?= $data->id ?>" target="_blank">Cetak Lampiran</a>
+													<?php } ?>
 													<?php endif ?>
 												</div>
 											</div><br>
 											<?php if ($data->status == '4') { ?>
 												<label><i class="badge badge-success"><?= $data->ls ?> <br> <?= indo_date($data->tgl_bayar) ?> <br> <?= $data->dipa ?></i></label>
 											<?php } ?>
-
+											<?php } ?>
 										</td>
-										<td><?= $data->no_spd ?> </td>
+											<td><?= $data->no_spd ?> <?php if($data->status_ppk==1) {?><i class="nav-icon fas fa-check-circle text-success" data-toggle="tooltip" data-placement="bottom" title="Approved SPD oleh PPK"></i><?php } ?> </td>
 										<td><?= tgl_ind($data->tgl_spd) ?></td>
 										<td><?= $data->nama ?></td>
 
 										<td><?php
-											if ($data->sort == '1') {
-												echo $sort = 'KP2KP Limboto';
-											} elseif ($data->sort == '2') {
-												echo $sort = 'KP2KP Tilamuta';
-											} elseif ($data->sort == '3') {
-												echo $sort = 'KP2KP Marissa';
-											} else {
-												echo $sort = 'KPP Pratama Gorontalo';
-											}
-											?></td>
+												if ($data->sort == '1') {
+													echo $sort = 'KP2KP Limboto';
+												} elseif ($data->sort == '2') {
+													echo $sort = 'KP2KP Tilamuta';
+												} elseif ($data->sort == '3') {
+													echo $sort = 'KP2KP Marissa';
+												} else {
+													echo $sort = 'KPP Pratama Gorontalo';
+												}
+												?></td>
 										<td><?= ($data->total_bayar >= 0) ? number_format($data->total_bayar) : '0' ?></td>
 										<td><?php
 											// if ($data->by_transportasi_berangkat == NULL || $data->uang_harian == NULL) {
@@ -182,16 +180,20 @@
 											// } else { 
 											?>
 											<?php if ($data->status < 5) : ?>
+												<?php if ($this->fungsi->user_login()->ppk == 1) { ?>
+													<a href="<?= site_url('pegawai/print_rincian/') ?><?= $data->id ?>" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="Cetak Rincian" target="_blank"><i class="fas fa-print"></i> </a>
+												<?php }else{ ?>
+
 												<?php if ($data->status != '4') { ?>
-													<?php if ($data->tujuan1 != '') { ?>
-														<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
-															<i class="fa fa-envelope-open-text"></i>
-														</a>
-													<?php } else { ?>
-														<a class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD" onclick="alert('Tujuan masih kosong, silahkan input tujuan di menu edit spd')">
-															<i class="fa fa-envelope-open-text"></i>
-														</a>
-													<?php } ?>
+    												<?php if ($data->tujuan1 != '') { ?>
+    													<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
+    														<i class="fa fa-envelope-open-text"></i>
+    													</a>
+    												<?php } else { ?>
+    												    <a class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD" onclick="alert('Tujuan masih kosong, silahkan input tujuan di menu edit spd')">
+    														<i class="fa fa-envelope-open-text"></i>
+    													</a>
+    												<?php } ?>
 												<?php } ?>
 												<a href="<?= site_url('spd_admin/print_rincian/') ?><?= $data->id ?>" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="Cetak Rincian" target="_blank"><i class="fas fa-print"></i> </a>
 												<a href="<?= site_url('spdku/laporan/pengeluaran_riil/' . $data->id) ?>" target="_blank" class="btn btn-xs bg-lightblue" data-toggle="tooltip" data-placement="top" title="Laporan Pengeluaran Riil">
@@ -203,48 +205,58 @@
 												<?php if ($data->kuitansi != null || $data->kuitansi != '') : ?>
 													<!--<a href="<?= site_url('uploads/kuitansi/' . $data->kuitansi) ?>" class="btn btn-xs btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Lihat Kuitansi" target="_blank"><i class="fas fa-file"></i> </a>-->
 												<?php endif ?>
+
+												<?php } ?>
 											<?php endif ?>
-											<?php //} 
-											?></td>
-										<td>
-											<input type="checkbox" data-toggle="toggle" data-off="Disabled" data-on="Enabled" <?= $data->status_ppk == 1 ? 'checked' : '' ?> disabled>
-											<small><label>Approved SPD oleh PPK</label></small>
-											<br>
-										</td>
+											</td>
+
 										<td>
 											<?php if ($data->status == '0') { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
+												<!-- <br>
+												<input type="checkbox" name="toggle5" id="toggle5_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle5_<?php //echo $data->id; ?>">OK</label></small>
 												<br>
-												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
-												<br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
+												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
 											<?php } elseif ($data->status == '1') { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
-												<br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
+												<!-- <br>
+												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
 											<?php } elseif ($data->status == '2') { ?>
+												<?php if ($this->fungsi->user_login()->ppk != 1) { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
 												<br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
+												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" disabled >
+												<small><label for="toggle6_<?php echo $data->id; ?>">Proses Approve PPK</label></small>
+												
+												<?php } else { ?>
+												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" onclick="return confirm('Approve data ini?')">
+												<small><label for="toggle6_<?php echo $data->id; ?>">Approve RPD</label></small>
+												<?php } ?>
+												
+												<!-- <br>
+												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
 											<?php } elseif ($data->status == '3') { ?>
-												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
+												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
-												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
+												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
+												<br>
+												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
+												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
@@ -254,6 +266,9 @@
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
+												<br>
+												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
+												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
@@ -299,6 +314,7 @@
 											</div>
 										</div>
 									</div>
+
 								<?php endforeach ?>
 							</tbody>
 						</table>
