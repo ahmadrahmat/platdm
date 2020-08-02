@@ -320,24 +320,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</li>
 						<?php endif ?>
 						<?php if ($this->fungsi->user_login()->level == 4) : ?>
-							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
-								<li class="nav-item">
-									<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
-										<i class="nav-icon fas fa-file"></i>
-										<p>
-											Rekap SPD
-										</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="<?= site_url('spdku/approve_spdku') ?>" class="nav-link <?= $this->uri->segment(2) == 'approve_spdku' ? 'active' : null ?>">
-										<i class="nav-icon fas fa-clipboard-check"></i>
-										<p>
-											Approve SPD
-										</p>
-									</a>
-								</li>
-							<?php endif ?>
 							<li class="nav-item">
 								<a href="<?= site_url('spdku') ?>" class="nav-link <?= $this->uri->segment(1) == 'spdku' && $this->uri->segment(2) != 'approve_spdku' ? 'active' : null ?>">
 									<i class="nav-icon fas fa-book"></i>
@@ -348,6 +330,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</li>
 							
 							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
+							
+								<li class="nav-item">
+									<a href="<?= site_url('spdku/approve_spdku') ?>" class="nav-link <?= $this->uri->segment(2) == 'approve_spdku' ? 'active' : null ?>">
+										<i class="nav-icon fas fa-clipboard-check"></i>
+										<p>
+											Approve SPD
+										</p>
+									</a>
+								</li>
 							<li class="nav-item">
 								<a href="<?= site_url('pegawai/approveppk') ?>" class="nav-link <?= $this->uri->segment(2) == 'approveppk' ? 'active' : '' ?>">
 									<i class="nav-icon fas fa-check"></i>
